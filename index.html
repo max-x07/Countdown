@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        /* Styles the look and centers the timer */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+        }
+        #timer {
+            font-size: 5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+
+    
+    <div id="timer"></div>
+
+    <script>
+    // Set the target date (August 19, 2026 at midnight)
+    const targetDate = new Date("August 19, 2026 12:00:00").getTime();
+
+    const timerDisplay = document.getElementById("timer");
+
+    function updateCountdown() {
+        // Current time
+        const now = new Date().getTime();
+
+        // Difference in milliseconds
+        const distance = targetDate - now;
+
+        // If the countdown is finished
+        if (distance <= 0) {
+            timerDisplay.textContent = "TIME'S UP!";
+            clearInterval(countdownInterval);
+            return;
+        }
+
+        // Calculate time units
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display with leading zeros
+        timerDisplay.textContent =
+            `${String(days).padStart(2, "0")}:` +
+            `${String(hours).padStart(2, "0")}:` +
+            `${String(minutes).padStart(2, "0")}:` +
+            `${String(seconds).padStart(2, "0")}`;
+    }
+
+    // Run immediately
+    updateCountdown();
+
+    // Update every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
